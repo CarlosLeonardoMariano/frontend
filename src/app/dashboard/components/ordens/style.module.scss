@@ -1,0 +1,88 @@
+
+
+
+.container{
+   color: rgb(255, 255, 255);
+   max-width: 720px;
+   margin: 20px auto;
+   padding: 0 18px;
+   display: flex;
+   justify-content: space-between;
+   flex-direction: column;
+   margin-top: 28px;
+}
+
+
+.OrderscontainerHeader{
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: sans-serif;
+    margin-bottom: 30px;
+}
+
+.h1{
+    font-size: 24px;
+    font-weight: 100
+}
+
+
+.button{
+    background-color: transparent;
+    border: none;
+}
+
+
+.listaOrder{
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+}
+
+
+.OrderItem{
+    display: flex;
+    background-color: #080813;
+    border: none;
+    color: white;
+    align-items: center;
+    font-size: 18px;
+    border-radius: 8px;
+
+    &:hover{
+        filter: brightness(1.20);
+        transition: all 110ms ease;
+
+    }
+}
+
+.tag{
+    width: 10px;
+    background-color: #00FF00; /* Verde Neon */    height: 40px;
+    border-radius: 8px 0px 0px 8px;
+    margin-right: 16px;
+}
+
+
+.noOrdersMessage {
+    display: flex;
+    justify-content: center; /* Centraliza a mensagem horizontalmente */
+    align-items: center; /* Centraliza a mensagem verticalmente */
+    height: 50vh; /* Preenche a tela toda */
+    font-size: 1.5rem; /* Tamanho da fonte */
+    font-weight: 200; /* Deixa o texto em negrito */
+    color: #333; /* Cor do texto - cor neutra e profissional */
+    background-color: transparent;
+    border-radius: 8px; /* Bordas arredondadas para dar um toque mais moderno */
+    padding: 20px; /* Espaçamento interno */
+    text-align: center; /* Alinha o texto ao centro */
+    font-family: sans-serif;
+  }
+  
+  .noOrdersMessage span {
+    font-size: 1.25rem; /* Tamanho de fonte ajustado */
+    color: #ffffff; /* Cor do texto para dar suavidade */
+  }
+  
