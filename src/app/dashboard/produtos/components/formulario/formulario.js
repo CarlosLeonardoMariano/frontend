@@ -21,16 +21,30 @@ export function Formulario({categorias}){
 const handlePriceChange = (e) => {
     let value = e.target.value;
 
-    // Remove qualquer coisa que não seja número ou vírgula
-    value = value.replace(/[^0-9,]/g, '');
+    // Remove tudo que não for número
+    value = value.replace(/[^\d]/g, '');
 
-    // Adiciona o prefixo "R$"
-    if (value !== "") {
-        // Formata com ponto para milhares
-        value = 'R$ ' + value.replace(/(\d)(\d{3})(,|$)/g, '$1.$2$3');
+    // Se estiver vazio, atualiza com valor limpo
+    if (value === '') {
+        setPrice('');
+        return;
     }
 
-    setPrice(value);  // Armazena o valor formatado
+    // Converte para número e divide por 100 para simular as casas decimais
+    const numberValue = parseFloat(value) / 100;
+
+    // Converte para string com 2 casas, troca ponto por vírgula
+    let formatted = numberValue
+        .toFixed(2)                 // "1234.00"
+        .replace('.', ',');         // "1234,00"
+
+    // Adiciona pontos como separadores de milhar
+    formatted = formatted.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    // Adiciona o prefixo R$
+    formatted = 'R$ ' + formatted;
+
+    setPrice(formatted);
 };
 
 
@@ -135,7 +149,9 @@ const handlePriceChange = (e) => {
                         return(
                             <option key={category.id} value={index}>
                                 {category.name}
+                            
                             </option>
+                           
                         )
 })}
 </select>
