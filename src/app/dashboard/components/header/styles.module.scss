@@ -66,31 +66,32 @@
     }
 
     @media (max-width: 600px) {
-        flex-direction: column;
-        height: auto;
+      flex-direction: column; // Só a parte externa fica em coluna
+      height: auto;
+      gap: 12px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    
+      nav {
+        // Removi flex-direction: column;
         gap: 12px;
-        padding-top: 10px;
-        padding-bottom: 10px;
     
-        nav {
-          flex-direction: column;
-          gap: 12px;
-    
-          a {
-            font-size: 14px;
-          }
-    
-          button {
-            margin-left: 0;
-          }
+        a {
+          font-size: 14px; // Pode manter menor se quiser
         }
     
-        .logoTotal {
-          font-size: 24px;
-    
-          .p {
-            font-size: 26px;
-          }
+        button {
+          margin-left: 0;
         }
       }
+    
+      .logoTotal {
+        font-size: 24px;
+    
+        .p {
+          font-size: 26px;
+        }
+      }
+    }
+    
 }
