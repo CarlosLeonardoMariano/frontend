@@ -79,6 +79,10 @@
     margin-bottom: 20px;
   }
 
+  .headerContainer {
+    margin-bottom: 4rem; // 👈 Aqui você ajusta o espaço pra baixo
+  }
+
   .nav {
     width: 100%;
     display: flex;
@@ -88,7 +92,7 @@
 
   .menuLinks {
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 20px;
 
     a {
       font-size: 14px;
@@ -97,6 +101,8 @@
 
   .logoTotal {
     font-size: 24px;
+    display: flex;
+    align-items: center;
 
     .p {
       font-size: 26px;
