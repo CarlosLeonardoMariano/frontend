@@ -1,6 +1,6 @@
 .headerContainer {
   height: 5rem;
-  background-color: #121212; // só pra dar contraste, se quiser
+  background-color: #121212; /* cor de fundo para contraste */
 }
 
 .headerContante {
@@ -11,26 +11,28 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
 
-  .logoTotal {
-    display: flex;
-    align-items: center;
-    color: white;
-    font-family: sans-serif;
-    font-size: 30px;
+.logoTotal {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-family: sans-serif;
+  font-size: 30px;
+}
 
-    .p {
-      color: red;
-      font-size: 35px;
-      margin-bottom: 5px;
-    }
-  }
+.p {
+  color: red;
+  font-size: 35px;
+  margin-bottom: 5px;
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 21px;
+  gap: 21px; /* Ajuste o valor do gap conforme necessário */
+  width: 100%;
+  justify-content: flex-start; /* Faz os itens ficarem próximos, sem espaço entre */
 }
 
 .menuLinks {
@@ -47,6 +49,13 @@
       color: red;
     }
   }
+}
+
+/* Ajuste o botão de logout para ficar junto com os links */
+form {
+  display: flex;
+  justify-content: center; /* Centraliza o botão de logout com os links */
+  align-items: center;
 }
 
 button {
