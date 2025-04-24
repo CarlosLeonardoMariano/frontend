@@ -75,12 +75,24 @@
     gap: 12px;
     padding-top: 10px;
     padding-bottom: 10px;
-    align-items: flex-start;
+    align-items: center; // 👈 Troque de flex-start para center
     margin-bottom: 20px;
   }
 
   .headerContainer {
-    margin-bottom: 4rem; // 👈 Aqui você ajusta o espaço pra baixo
+    margin-bottom: 4rem;
+  }
+
+  .logoTotal {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center; // 👈 Centraliza o conteúdo interno
+    text-align: center;
+
+    .p {
+      font-size: 26px;
+    }
   }
 
   .nav {
@@ -98,14 +110,5 @@
       font-size: 14px;
     }
   }
-
-  .logoTotal {
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-
-    .p {
-      font-size: 26px;
-    }
-  }
 }
+
