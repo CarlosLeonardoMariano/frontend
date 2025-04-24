@@ -1,6 +1,5 @@
 .headerContainer {
   height: 5rem;
-  background-color: #121212;
 }
 
 .headerContante {
@@ -70,34 +69,32 @@
 @media (max-width: 600px) {
   .headerContante {
     flex-direction: column;
-    height: auto;
-    gap: 12px;
-    padding-top: 10px;
-    padding-bottom: 10px;
     align-items: flex-start;
+    padding: 10px 16px;
+    gap: 12px;
+    height: auto;
+    margin-bottom: 20px;
   }
 
   .nav {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
 
   .menuLinks {
-    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: 12px;
+    flex-wrap: wrap;
 
     a {
       font-size: 14px;
     }
-  }
 
-  .logoTotal {
-    font-size: 24px;
-
-    .p {
-      font-size: 26px;
+    form {
+      margin-left: auto;
     }
   }
 }
+
+
