@@ -16,7 +16,10 @@
         gap: 16px;
     }
 
-
+    @media (max-width: 480px) {
+        padding: 0 12px;
+        margin-top: 24px;
+      }
 
 }
 
@@ -29,6 +32,10 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     
+    @media (max-width: 480px) {
+        font-size: 18px;
+        text-align: center;
+      }
 
 }
 
@@ -41,4 +48,11 @@
     color: white;
     border-radius: 8px;
     border: 1px solid #2c3252;
+
+    @media (max-width: 480px) {
+        height: 52px;
+        font-size: 16px;
+      }
+
+      
     }

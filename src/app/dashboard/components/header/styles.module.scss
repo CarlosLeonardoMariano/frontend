@@ -30,7 +30,7 @@
     justify-content: space-between;
 
 
-
+ // ABRINDO O NAV 
     nav{
         display: flex;
         align-items: center;
@@ -43,12 +43,13 @@
             text-decoration: none; /* Remove a decoração padrão do link */
             transition: all 500ms ease;
 
-
-
             &:hover{
                 color: red;
             }
         }
+
+         // FECHANDO O NAV 
+
 
 
         button{
@@ -63,4 +64,33 @@
             }
         }
     }
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+        height: auto;
+        gap: 12px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    
+        nav {
+          flex-direction: column;
+          gap: 12px;
+    
+          a {
+            font-size: 14px;
+          }
+    
+          button {
+            margin-left: 0;
+          }
+        }
+    
+        .logoTotal {
+          font-size: 24px;
+    
+          .p {
+            font-size: 26px;
+          }
+        }
+      }
 }
