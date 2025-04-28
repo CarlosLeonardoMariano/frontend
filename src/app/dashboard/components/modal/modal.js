@@ -15,9 +15,23 @@ export function ModalOrder(id){
         onRequstClose()
     }
 
-    async function finalizarPedidoOrder(){
-        await finalizarPedido(order[0].ordem.id)
-    }
+    async function finalizarPedidoOrder() {
+        const total = calculateTotalOrder(); // Calcula o valor total do pedido
+        console.log('TOTAL:', total);
+      
+        // Pega o valor atual de entradas
+        let entradasAtual = localStorage.getItem('entradas');
+      
+        if (!entradasAtual || isNaN(parseFloat(entradasAtual))) {
+          entradasAtual = '0'; // Força ser '0' se não existir ou for inválido
+        }
+      
+        const entradaNova = parseFloat(entradasAtual) + total;
+        localStorage.setItem('entradas', entradaNova.toString());
+      
+        // Finaliza o pedido
+        await finalizarPedido(order[0].ordem.id);
+      }
 
         function calculateTotalOrder(){
             return order.reduce((total, item) => {

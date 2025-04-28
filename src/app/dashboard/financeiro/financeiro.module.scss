@@ -1,0 +1,140 @@
+// Variáveis de cores para facilitar a manutenção
+$verde: #38a169;
+$vermelho: #e53e3e;
+$azul: #3182ce;
+$cinza-claro: #f7fafc;
+$cinza-escuro: #2d3748;
+
+// Estilo geral do container do financeiro
+.financeiroContainer {
+  padding: 2rem;
+  background-color: 'trasparent';
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+// Estilos do título
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  
+}
+
+// Container para a grid de cards
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  min-height: 150px;
+  margin-bottom: 2rem;
+}
+
+// Estilos para os cards (Saldo, Entradas, Saídas)
+.card {
+  padding: 1.5rem;
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+.saldo {
+  background-color: $verde;
+}
+
+.entradas {
+  background-color: $azul;
+}
+
+.saidas {
+  background-color: $vermelho;
+}
+
+// Estilos para a tabela de movimentações
+.movimentacoes {
+  margin-top: 2rem;
+  background-color: $cinza-claro;
+
+  .h2Movimentaçoes{
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 0.75rem;
+      border: 1px solid #e2e8f0;
+      text-align: left;
+      background-color: $cinza-claro;
+
+    }
+
+    th {
+      background-color: $cinza-claro;
+      text-transform: uppercase;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .entrada {
+      color: $verde;
+    }
+
+    .saida {
+      color: $vermelho;
+    }
+  }
+}
+
+// Estilos para os botões
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+
+  .btn {
+    padding: 0.75rem 1.25rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btnEntrada {
+    background-color: $verde;
+    color: white;
+    
+    &:hover {
+      background-color: darken($verde, 10%);
+    }
+  }
+
+  .btnSaida {
+    background-color: $vermelho;
+    color: white;
+    
+    &:hover {
+      background-color: darken($vermelho, 10%);
+    }
+  }
+}

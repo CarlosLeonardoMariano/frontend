@@ -35,6 +35,7 @@ export default function Header() {
                     <div className={styles.menuLinks}>
                         <Link href={'/dashboard/categorias'}>Categorias</Link>
                         <Link href={'/dashboard/produtos'}>Produtos</Link>
+                        <Link href={'/dashboard/financeiro'}>Caixa</Link>
                         <form action={handleLogout}>
                             <button type='submit'>
                                 <LogOutIcon size={22} color='white' />
