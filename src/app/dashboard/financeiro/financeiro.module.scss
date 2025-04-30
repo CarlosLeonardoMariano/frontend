@@ -177,11 +177,16 @@ $cinza-escuro: #2d3748;
     border-collapse: collapse;
   }
 
+  .tableWrapper {
+    overflow-x: auto;
+    width: 100%;
+  }
+  
   .movimentacoes th,
   .movimentacoes td {
-    font-size: 12px;
+    font-size: 11px;
     padding: 10px;
-    width: 100%;
+    // white-space: nowrap; /* Opcional: evita quebra de linha dentro das células */
 
   
   }

@@ -128,6 +128,7 @@ export default function Financeiro() {
 
       <div className={styles.movimentacoes}>
         <h2 className={styles.h2Movimentaçoes}>Movimentações do dia</h2>
+        <div className={styles.tableWrapper}>
         <table >
           <thead>
             <tr>
@@ -158,6 +159,7 @@ export default function Financeiro() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
 
       <div className={styles.buttons}>
