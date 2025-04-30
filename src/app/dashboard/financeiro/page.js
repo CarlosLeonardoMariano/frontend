@@ -145,7 +145,7 @@ export default function Financeiro() {
                 {pedido.origem === 'manual' ? pedido.descricao : `Pedido #${String(index + 1).padStart(3, '0')}`}
                  </td>
 
-                <td style={{ color: pedido.tipo === 'Entrada' ? 'green' : 'red' }}>
+                <td style={{ color: pedido.tipo === 'Entrada' ? 'green' : 'red'}}>
                   R$ {pedido.valor.toFixed(2)}
                 </td>
 

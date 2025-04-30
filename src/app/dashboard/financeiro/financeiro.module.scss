@@ -139,3 +139,63 @@ $cinza-escuro: #2d3748;
     }
   }
 }
+
+
+@media (max-width:600px){
+  .financeiroContainer {
+    width: 100%;
+  }
+
+  .title{
+    font-size: 1.20rem;
+  }
+
+.gridContainer{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.card{
+  h2{
+    font-size: 23px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+
+  .movimentacoes {
+    width: 100%;
+  }
+
+  .h2Movimentaçoes {
+    font-size: 18px;
+  }
+
+  .movimentacoes table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .movimentacoes th,
+  .movimentacoes td {
+    font-size: 12px;
+    padding: 10px;
+    width: 100%;
+
+  
+  }
+
+ 
+
+  .buttons{
+    justify-content: space-between;
+  }
+
+
+
+
+
+
+
+}
