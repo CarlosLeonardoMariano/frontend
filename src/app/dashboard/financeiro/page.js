@@ -3,21 +3,108 @@
 import styles from './financeiro.module.scss';  
 import { useEffect, useState } from 'react';
 
-
-
-
 export default function Financeiro() {
-  const [entradas, setEntradas] = useState(0);
+  const [pedidos, setPedidos] = useState([]);
 
-  useEffect(()=>{
-    const entradasStorage = localStorage.getItem('entradas');
-    if (!entradasStorage || isNaN(parseFloat(entradasStorage))) {
-      setEntradas(0);
-    } else {
-      setEntradas(parseFloat(entradasStorage));
+  // Cálculos dinâmicos baseados nas movimentações
+  const entradas = pedidos
+    .filter(pedido => pedido.tipo === 'Entrada')
+    .reduce((total, pedido) => total + pedido.valor, 0);
+
+  const saidas = pedidos
+    .filter(pedido => pedido.tipo === 'Saída')
+    .reduce((total, pedido) => total + pedido.valor, 0);
+
+  const saldoAtual = entradas - saidas;
+
+
+
+
+
+
+  useEffect(() => {
+    const movimentacoesStorage = localStorage.getItem('movimentacoes');
+    if (movimentacoesStorage) {
+      setPedidos(JSON.parse(movimentacoesStorage));
     }
-  },[])
-  
+  }, []);
+
+
+
+
+
+
+
+
+  // FUNÇÃO PARA ADICIONAR DINHEIRO NO CAIXA
+
+  function handleADDfinanceiro() {
+    const valorPositivo = parseFloat(prompt('Digite um valor para adicionar ao seu caixa:'));
+    if (isNaN(valorPositivo) || valorPositivo <= 0) {
+      alert('Valor inválido');
+      return;
+    }
+
+    const novaMovimentacao = {
+      id: Date.now(),
+      descricao: 'Entrada do Proprietário',
+      valor: valorPositivo,
+      tipo: 'Entrada',
+      origem: 'manual',
+      hora: new Date().toLocaleTimeString(),
+    };
+
+    const novasMovimentacoes = [...pedidos, novaMovimentacao];
+    setPedidos(novasMovimentacoes);
+    localStorage.setItem('movimentacoes', JSON.stringify(novasMovimentacoes));
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // FUNÇÃO PARA TIRAR DINHEIRO NO CAIXA
+
+
+  function handleRemoverfinanceiro() {
+    const valorNegativo = parseFloat(prompt('Digite um valor para tirar do seu caixa:'));
+    if (isNaN(valorNegativo) || valorNegativo <= 0) {
+      alert('Valor inválido');
+      return;
+    }
+
+    if (valorNegativo > saldoAtual) {
+      alert('Você não tem esse valor disponível no seu caixa!');
+      return;
+    }
+
+    const novaMovimentacaoNegativo = {
+      id: Date.now(),
+      descricao: 'Retirada do Proprietário',
+      valor: valorNegativo,
+      tipo: 'Saída',
+      origem: 'manual',
+      hora: new Date().toLocaleTimeString(),
+    };
+
+    const novasMovimentacoes = [...pedidos, novaMovimentacaoNegativo];
+    setPedidos(novasMovimentacoes);
+    localStorage.setItem('movimentacoes', JSON.stringify(novasMovimentacoes));
+  }
+
   return (
     <div className={styles.financeiroContainer}>
       <h1 className={styles.title}>Controle Financeiro</h1>
@@ -25,23 +112,23 @@ export default function Financeiro() {
       <div className={styles.gridContainer}>
         <div className={`${styles.card} ${styles.saldo}`}>
           <h2>Saldo Atual</h2>
-          <p>R$ </p>
+          <p>R$ {saldoAtual.toFixed(2)}</p>
         </div>
 
         <div className={`${styles.card} ${styles.entradas}`}>
-          <h2>Entradas Hoje </h2>
+          <h2>Entradas Hoje</h2>
           <p>R$ {entradas.toFixed(2)}</p>
         </div>
 
         <div className={`${styles.card} ${styles.saidas}`}>
           <h2>Saídas Hoje</h2>
-          <p>R$</p>
+          <p>R$ {saidas.toFixed(2)}</p>
         </div>
       </div>
 
       <div className={styles.movimentacoes}>
         <h2 className={styles.h2Movimentaçoes}>Movimentações do dia</h2>
-        <table>
+        <table >
           <thead>
             <tr>
               <th>Descrição</th>
@@ -51,32 +138,35 @@ export default function Financeiro() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-                <td>
-                Pedido #001
-                </td>
-
-                <td>
-                R$ 92.00
-                </td>
-
-                <td>
-                Entrada
-                </td>
-
-                <td>
-                18:05
-                </td>
+            {pedidos.map((pedido,index) => (
+              <tr key={pedido.id}>
                 
-            </tr>
-            
+                <td>
+                {pedido.origem === 'manual' ? pedido.descricao : `Pedido #${String(index + 1).padStart(3, '0')}`}
+                 </td>
+
+                <td style={{ color: pedido.tipo === 'Entrada' ? 'green' : 'red' }}>
+                  R$ {pedido.valor.toFixed(2)}
+                </td>
+
+                <td style={{ color: pedido.tipo === 'Entrada' ? 'green' : 'red' }}>
+                  {pedido.tipo}
+                </td>
+
+                <td>{pedido.hora}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
 
       <div className={styles.buttons}>
-        <button className={`${styles.btn} ${styles.btnEntrada}`}>Nova Entrada</button>
-        <button className={`${styles.btn} ${styles.btnSaida}`}>Nova Saída</button>
+        <button className={`${styles.btn} ${styles.btnEntrada}`} onClick={handleADDfinanceiro}>
+          Nova Entrada
+        </button>
+        <button className={`${styles.btn} ${styles.btnSaida}`} onClick={handleRemoverfinanceiro}>
+          Nova Saída
+        </button>
       </div>
     </div>
   );
