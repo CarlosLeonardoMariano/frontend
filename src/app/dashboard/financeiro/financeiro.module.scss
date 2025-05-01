@@ -28,7 +28,7 @@ $cinza-escuro: #2d3748;
 // Container para a grid de cards
 .gridContainer {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 1.5rem;
   min-height: 150px;
   margin-bottom: 2rem;
@@ -64,6 +64,29 @@ $cinza-escuro: #2d3748;
 .saidas {
   background-color: $vermelho;
 }
+
+.subtitulo {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #6c5ce7; // Roxo moderno
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  text-align: center;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease-in-out;
+  font-family: Arial, Helvetica, sans-serif;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.saidaspedidos {
+  background-color: #6c5ce7; // Roxo moderno
+}
+
 
 // Estilos para a tabela de movimentações
 .movimentacoes {
@@ -151,7 +174,7 @@ $cinza-escuro: #2d3748;
     color: $cinza-claro;
   }
 
-  
+
 
 
 }

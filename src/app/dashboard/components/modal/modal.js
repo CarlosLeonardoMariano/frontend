@@ -38,6 +38,7 @@ export function ModalOrder(id) {
         descricao: `Pedido #${String(movimentacoesExistentes.length + 1).padStart(3, '0')}`,
         valor: total,
         tipo: 'Entrada',
+        origem: 'manual',
         hora: new Date().toLocaleTimeString()
       };
   

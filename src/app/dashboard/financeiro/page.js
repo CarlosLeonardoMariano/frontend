@@ -6,14 +6,11 @@ import { toast } from 'sonner';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 
-
-
 export default function Financeiro() {
   const [pedidos, setPedidos] = useState([]);
 
   const router = useRouter();
 
-  // Cálculos dinâmicos baseados nas movimentações
   const entradas = pedidos
     .filter(pedido => pedido.tipo === 'Entrada')
     .reduce((total, pedido) => total + pedido.valor, 0);
@@ -24,8 +21,8 @@ export default function Financeiro() {
 
   const saldoAtual = entradas - saidas;
 
-
-
+  // Total de pedidos finalizados VINDO DO APLICATIVO
+  const totalPedidosFinalizados = pedidos.filter(p => p.origem === 'manual' && p.descricao.startsWith('Pedido') ).length;
 
 
 
@@ -36,38 +33,27 @@ export default function Financeiro() {
     }
   }, []);
 
-
-
-
-
-
-
-
-  // FUNÇÃO PARA ADICIONAR DINHEIRO NO CAIXA
-
   function handleADDfinanceiro() {
     const valorPositivo = parseFloat(prompt('Digite um valor para adicionar ao seu caixa:'));
     if (isNaN(valorPositivo) || valorPositivo <= 0) {
- 
-      toast.warning('Por favor, insira um valor numérico válido antes de continuar.',{
-        style:{
-          backgroundColor:'red',
-          color:'white',
-          border:'none'
+      toast.warning('Por favor, insira um valor numérico válido antes de continuar.', {
+        style: {
+          backgroundColor: 'red',
+          color: 'white',
+          border: 'none'
         },
-        duration:1500
-      })
+        duration: 1500
+      });
       return;
-    } else{
-      toast.success('Valor adicionado ao seu caixa com sucessos !',{
-        style:{
-          backgroundColor:'green',
-          color:'white',
-          border:'none'
+    } else {
+      toast.success('Valor adicionado ao seu caixa com sucesso!', {
+        style: {
+          backgroundColor: 'green',
+          color: 'white',
+          border: 'none'
         },
-        duration:1500
-      })
-
+        duration: 1500
+      });
     }
 
     const novaMovimentacao = {
@@ -84,45 +70,25 @@ export default function Financeiro() {
     localStorage.setItem('movimentacoes', JSON.stringify(novasMovimentacoes));
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // FUNÇÃO PARA TIRAR DINHEIRO NO CAIXA
-
-
   function handleRemoverfinanceiro() {
     const valorNegativo = parseFloat(prompt('Digite um valor para tirar do seu caixa:'));
     if (isNaN(valorNegativo) || valorNegativo <= 0) {
-      toast.warning('Por favor, insira um valor numérico válido antes de continuar.',{
-        style:{
-          backgroundColor:'red',
-          color:'white',
-          border:'none'
+      toast.warning('Por favor, insira um valor numérico válido antes de continuar.', {
+        style: {
+          backgroundColor: 'red',
+          color: 'white',
+          border: 'none'
         },
-        duration:1500
-      })
+        duration: 1500
+      });
       return;
     }
 
     if (valorNegativo > saldoAtual) {
-      toast.error('Você não tem esse valor disponível no seu caixa!',{
-        style:{
-          background:'red',
-          fontWeight:'bold'
+      toast.error('Você não tem esse valor disponível no seu caixa!', {
+        style: {
+          background: 'red',
+          fontWeight: 'bold'
         }
       });
       return;
@@ -142,34 +108,30 @@ export default function Financeiro() {
     localStorage.setItem('movimentacoes', JSON.stringify(novasMovimentacoes));
   }
 
-  function handleRemoverlocalStorage(req){
+  function handleRemoverlocalStorage() {
+    const movimentacoes = localStorage.getItem('movimentacoes');
 
-  const movimentacoes = localStorage.getItem('movimentacoes')
-
-  if(!movimentacoes || JSON.parse(movimentacoes).length === 0){
-    toast.info('Não há dados para remover.', {
-      style: {
-        backgroundColor: 'red',
-        color: 'white',
-        border: 'none'
-      },
-      duration: 1500
-    });
-    return;
-  }
-
-
-    localStorage.clear();
+    if (!movimentacoes || JSON.parse(movimentacoes).length === 0) {
+      toast.info('Não há dados para remover.', {
+        style: {
+          backgroundColor: 'red',
+          color: 'white',
+          border: 'none'
+        },
+        duration: 1500
+      });
+      return;
+    }
 
     Swal.fire({
-      title: 'Deseja realmente excluir essa tabela ?',
+      title: 'Deseja realmente excluir essa tabela?',
       showCancelButton: true,
       confirmButtonText: 'Sim, excluir',
       cancelButtonText: 'Cancelar',
       confirmButtonColor: '#e74c3c',
       cancelButtonColor: '#7f8c8d',
-    }).then( (result)=>{
-      if(result.isConfirmed){
+    }).then((result) => {
+      if (result.isConfirmed) {
         localStorage.removeItem('movimentacoes');
         setPedidos([]);
 
@@ -181,8 +143,7 @@ export default function Financeiro() {
           },
           duration: 1500
         });
-        router.refresh()
-
+        router.refresh();
       }
     });
   }
@@ -190,6 +151,8 @@ export default function Financeiro() {
   return (
     <div className={styles.financeiroContainer}>
       <h1 className={styles.title}>Controle Financeiro</h1>
+
+      
 
       <div className={styles.gridContainer}>
         <div className={`${styles.card} ${styles.saldo}`}>
@@ -206,67 +169,66 @@ export default function Financeiro() {
           <h2>Saídas Hoje</h2>
           <p>R$ {saidas.toFixed(2)}</p>
         </div>
+
+        <div className={`${styles.card} ${styles.saidaspedidos}`}>
+        <h2 className={styles.subtitulo}>
+        Loja - Pedidos: {totalPedidosFinalizados}
+        </h2>
+        </div>
       </div>
 
       <div className={styles.movimentacoes}>
         <h2 className={styles.h2Movimentaçoes}>Movimentações do dia</h2>
-        
+
         <div className={styles.tableWrapper}>
-        <table >
-          <thead>
-            <tr>
-              <th>Descrição</th>
-              <th>Valor</th>
-              <th>Tipo</th>
-              <th>Hora</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pedidos.map((pedido,index) => (
-              <tr key={pedido.id}>
-                
-                <td>
-                {pedido.origem === 'manual' ? pedido.descricao : `Pedido #${String(index + 1).padStart(3, '0')}`}
-                 </td>
-
-                <td style={{ color: pedido.tipo === 'Entrada' ? 'green' : 'red'}}>
-                  R$ {pedido.valor.toFixed(2)}
-                </td>
-
-                <td style={{ color: pedido.tipo === 'Entrada' ? 'green' : 'red' }}>
-                  {pedido.tipo}
-                </td>
-
-                <td>{pedido.hora}</td>
+          <table>
+            <thead>
+              <tr>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Tipo</th>
+                <th>Hora</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {pedidos.map((pedido, index) => (
+                <tr key={pedido.id}>
+                  <td>
+                    {pedido.origem === 'manual'? pedido.descricao : `Pedido #${String(index + 1).padStart(3, '0')}`}
+                  </td>
+
+                  <td style={{ color: pedido.tipo === 'Entrada' ? 'green' : 'red' }}>
+                    R$ {pedido.valor.toFixed(2)}
+                  </td>
+
+                  <td style={{ color: pedido.tipo === 'Entrada' ? 'green' : 'red' }}>
+                    {pedido.tipo}
+                  </td>
+
+                  <td>{pedido.hora}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 
       <div className={styles.buttons}>
         <div className={styles.divgap}>
-        <button className={`${styles.btn} ${styles.btnEntrada}`} onClick={handleADDfinanceiro}>
-          Nova Entrada
-        </button>
-        <button className={`${styles.btn} ${styles.btnSaida}`} onClick={handleRemoverfinanceiro}>
-          Nova Saída
-        </button>
-
+          <button className={`${styles.btn} ${styles.btnEntrada}`} onClick={handleADDfinanceiro}>
+            Nova Entrada
+          </button>
+          <button className={`${styles.btn} ${styles.btnSaida}`} onClick={handleRemoverfinanceiro}>
+            Nova Saída
+          </button>
         </div>
-      
 
         <div>
-<button className={`${styles.btn} ${styles.btnDel}`} onClick={handleRemoverlocalStorage}>
-          Limpar Tabela
-        </button>
-</div>
-
-        
+          <button className={`${styles.btn} ${styles.btnDel}`} onClick={handleRemoverlocalStorage}>
+            Limpar Tabela
+          </button>
+        </div>
       </div>
-
-      
     </div>
   );
 }
